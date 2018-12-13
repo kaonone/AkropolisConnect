@@ -51,11 +51,3 @@ buck-out/
 */fastlane/report.xml
 */fastlane/Preview.html
 */fastlane/screenshots
-
-# TypeScript
-#
-lib/
-
-# Jest
-#
-.jest/
