@@ -1,47 +1,34 @@
 {
-  "name": "akropolisconnect",
-  "version": "0.0.1",
-  "private": true,
+  "name": "AkropolisConnect",
+  "version": "0.0.0",
+  "private": false,
+  "license": "MIT",
+  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "lint": "tslint src/**/*.ts",
+    "start": "expo start",
+    "validate": "npm run lint --scripts-prepend-node-path && tsc --noEmit"
   },
   "dependencies": {
-    "react": "^16.3.0-alpha.1",
-    "react-native": "^0.54.3"
+    "expo": "31.0.4",
+    "react": "16.5.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.1.tar.gz",
+    "react-navigation": "2.18.2",
+    "tslib": "1.9.3"
   },
   "devDependencies": {
-    "@types/jest": "^22.2.2",
-    "@types/react": "^16.0.41",
-    "@types/react-native": "^0.52.19",
-    "@types/react-test-renderer": "^16.0.1",
-    "babel-jest": "22.4.3",
-    "babel-preset-react-native": "4.0.0",
-    "jest": "22.4.3",
-    "react-addons-test-utils": "^15.6.2",
-    "react-native-mock": "^0.3.1",
-    "react-native-typescript-transformer": "^1.2.3",
-    "react-test-renderer": "^16.3.0-alpha.1",
-    "ts-jest": "^22.4.2",
-    "typescript": "^2.8.1"
-  },
-  "jest": {
-    "preset": "react-native",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "transform": {
-      "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
-      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-    },
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "testPathIgnorePatterns": [
-      "\\.snap$",
-      "<rootDir>/node_modules/",
-      "<rootDir>/lib/"
-    ],
-    "cacheDirectory": ".jest/cache"
+    "@babel/core": "^7.0.0-0",
+    "@types/expo": "30.0.0",
+    "@types/expo__vector-icons": "6.2.3",
+    "@types/fbemitter": "2.0.32",
+    "@types/react": "16.4.18",
+    "@types/react-native": "0.57.7",
+    "@types/react-navigation": "2.13.1",
+    "tslint": "5.11.0",
+    "tslint-eslint-rules": "5.4.0",
+    "tslint-react": "3.6.0",
+    "typescript": "3.1.6"
   }
 }
