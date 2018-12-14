@@ -1,8 +1,18 @@
-import { createStackNavigator } from 'react-navigation'
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
 import MainScreen from './modules/MainScreen'
+import CodeScanner from './modules/CodeScanner'
+import CompleteTransactionScreen from './modules/CompleteTransaction'
 
+const scanCodeRoutes = createStackNavigator({
+  Main: { screen: MainScreen },
+  CodeScanner: { screen: CodeScanner },
+});
 
-export default createStackNavigator({
-  // tslint:disable:object-literal-sort-keys
-  Main: { screen: MainScreen }
-})
+const completeTransactionRoutes = createStackNavigator({
+  CompleteTransaction: CompleteTransactionScreen
+});
+
+export default createSwitchNavigator({
+  scanCode: scanCodeRoutes,
+  CompleteTransaction: completeTransactionRoutes
+}, { initialRouteName: 'scanCode' });

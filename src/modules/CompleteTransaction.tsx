@@ -8,11 +8,13 @@ import {
   Platform,
 } from 'react-native';
 
+import { withNavigation } from 'react-navigation';
+
 import { Button } from 'native-base';
 interface Props { }
-export default class App extends Component<Props> {
+class CompleteTransactionScreen extends Component<Props> {
   public static navigationOptions = {
-    title: 'Acropolis',
+    title: 'Enter a data',
     headerTintColor: Platform.OS === 'ios' ? undefined : 'white',
     headerStyle: {
       backgroundColor: Platform.OS === 'ios' ? undefined : '#6931b6',
@@ -20,31 +22,21 @@ export default class App extends Component<Props> {
   }
 
   render() {
+    const { navigation } = this.props;
+    const data = navigation.getParam('data', 'NO-ID');
+    const address = navigation.getParam('address', 'some default value');
+
     return (
-      <View style={styles.root}>
-        <View style={styles.main}>
-          <View style={{ alignItems: 'center' }}>
-            <Image
-              source={require('./shared/Phone.png')}
-            />
-          </View>
-        </View>
-        <View style={styles.footer}>
-          <Button
-            block
-            onPress={() => this.props.navigation.navigate('CodeScanner')}
-            style={styles.signCodeButton}
-          >
-            <Text style={styles.signCode}>SCAN QR-CODE</Text>
-          </Button>
-          <View style={{ paddingHorizontal: 40 }}>
-            <Text style={{ textAlign: 'center' }}>Please scan QR-code in your web app</Text>
-          </View>
-        </View>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>To complete the transaction enter date and address</Text>
+        <Text>Enter Data: {data}</Text>
+        <Text>Enter Adress: {address}</Text>
       </View>
     );
   }
 }
+
+export default withNavigation(CompleteTransactionScreen);
 
 const styles = StyleSheet.create({
   root: {
