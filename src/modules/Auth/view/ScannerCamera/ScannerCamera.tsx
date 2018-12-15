@@ -1,20 +1,20 @@
 import React from 'react';
-import { Text, View, Alert, Dimensions } from 'react-native';
-import { NavigationScreenProps } from 'react-navigation'
 import { BarCodeScanner, Permissions } from 'expo';
+import { Text, View, Alert, Dimensions } from 'react-native';
+import { NavigationScreenProps } from 'react-navigation';
 
-import styles from './styles'
+import styles from './styles';
 
 export default class ScannerCamera extends React.PureComponent<NavigationScreenProps> {
   public static navigationOptions = {
     title: 'Camera',
-  }
-
-  state = {
-    hasCameraPermission: null
   };
 
-  componentDidMount() {
+  public state = {
+    hasCameraPermission: null,
+  };
+
+  public componentDidMount() {
     this.requestCameraPermission();
   }
 
@@ -23,22 +23,22 @@ export default class ScannerCamera extends React.PureComponent<NavigationScreenP
     this.setState({
       hasCameraPermission: status === 'granted',
     });
-  };
+  }
 
-  handleBarCodeRead = (qr: { data: string }) => {
+  public handleBarCodeRead = (qr: { data: string }) => {
     const data = qr.data.split('/');
     Alert.alert(
       'Scan successful!',
-      `address: ${data[0]} / data: ${data[1]}`
+      `address: ${data[0]} / data: ${data[1]}`,
     );
 
     this.props.navigation.navigate('CompleteTransaction', {
       data: data[0],
       address: data[1],
     });
-  };
+  }
 
-  render() {
+  public render() {
     return (
       <View style={styles.container}>
         {this.state.hasCameraPermission === null ?

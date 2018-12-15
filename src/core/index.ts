@@ -1,10 +1,8 @@
+import AuthModule from 'modules/Auth';
+import { IModule, IModules } from 'shared/types/app';
+
 import makeMainNavigator from './MakeNavigator';
 import configureStore from './configureStore';
-
-import AuthModule from 'modules/Auth';
-
-
-import { IModule, IModules } from 'shared/types/app';
 
 export default function initializeCore() {
   const modules: IModules = {

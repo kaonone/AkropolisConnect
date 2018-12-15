@@ -4,7 +4,7 @@ import {
   View,
   Image,
 } from 'react-native';
-import { NavigationScreenProps } from 'react-navigation'
+import { NavigationScreenProps } from 'react-navigation';
 import { Button } from 'native-base';
 
 import styles from './styles';
@@ -12,9 +12,9 @@ import styles from './styles';
 export default class ScannerPreview extends Component<NavigationScreenProps> {
   public static navigationOptions = {
     title: 'Acropolis',
-  }
+  };
 
-  render() {
+  public render() {
     return (
       <View style={styles.root}>
         <View style={styles.main}>

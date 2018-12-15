@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Platform,
-} from 'react-native';
-import { NavigationScreenProps } from 'react-navigation'
+import { Text, View } from 'react-native';
+import { NavigationScreenProps } from 'react-navigation';
 
 class SignTransaction extends Component<NavigationScreenProps> {
   public static navigationOptions = {
     title: 'Enter a data',
-  }
+  };
 
-  render() {
+  public render() {
     const { navigation } = this.props;
     const data = navigation.getParam('data', 'NO-ID');
     const address = navigation.getParam('address', 'some default value');

@@ -4,11 +4,11 @@ import getFont from 'shared/helpers/getFont';
 export default StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   main: {
     flex: .65,
-    paddingTop: 50
+    paddingTop: 50,
   },
   signCodeButton: {
     borderRadius: 10,
@@ -30,6 +30,6 @@ export default StyleSheet.create({
     paddingHorizontal: 40,
     alignItems: 'center',
     backgroundColor: 'white',
-    paddingTop: 50
-  }
+    paddingTop: 50,
+  },
 });

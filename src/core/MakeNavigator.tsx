@@ -1,5 +1,6 @@
 import { Platform } from 'react-native';
-import { createStackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation';
+
 import { IModules } from 'shared/types/app';
 import getFont from 'shared/helpers/getFont';
 
@@ -8,7 +9,7 @@ export default function makeMainNavigator(modules: IModules) {
   const { Auth } = modules;
 
   const routes = createStackNavigator({
-    ...Auth.getRoutes()
+    ...Auth.getRoutes(),
   }, {
       navigationOptions: {
         headerTintColor: Platform.OS === 'ios' ? undefined : 'white',
@@ -23,4 +24,3 @@ export default function makeMainNavigator(modules: IModules) {
 
   return routes;
 }
-
