@@ -1,5 +1,3 @@
-// import initializeAppState from './initializeAppState';
-
 import makeMainNavigator from './MakeNavigator';
 import configureStore from './configureStore';
 
@@ -17,10 +15,7 @@ export default function initializeCore(): { store: any, MainNavigator: any } {
 
   const modulesArray: IModule[] = Object.keys(modules).map(key => modules[key]);
 
-  //const store = configureStore(modulesArray, []);
+  const store = configureStore(modulesArray, []);
 
-
-  // const { store, notifications } = initializeAppState(modulesArray, MainNavigator);
-
-  return { store: {}, MainNavigator };
+  return { store, MainNavigator };
 }

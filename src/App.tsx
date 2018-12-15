@@ -1,26 +1,20 @@
+import React from 'react';
+import { Provider } from 'react-redux';
+
 import initializeCore from './core';
 
+const { MainNavigator, store } = initializeCore();
 
 
-const { MainNavigator } = initializeCore();
+export default class App extends React.PureComponent {
 
-export default MainNavigator;
 
-// import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
-// import MainScreen from './modules/MainScreen'
-// import CodeScanner from './modules/CodeScanner'
-// import CompleteTransactionScreen from './modules/CompleteTransaction'
 
-// const scanCodeRoutes = createStackNavigator({
-//   Main: { screen: MainScreen },
-//   CodeScanner: { screen: CodeScanner },
-// });
-
-// const completeTransactionRoutes = createStackNavigator({
-//   CompleteTransaction: CompleteTransactionScreen
-// });
-
-// export default createSwitchNavigator({
-//   scanCode: scanCodeRoutes,
-//   CompleteTransaction: completeTransactionRoutes
-// }, { initialRouteName: 'scanCode' });
+  render() {
+    return (
+      <Provider store={store}>
+        <MainNavigator />
+      </Provider>
+    );
+  }
+}
