@@ -1,18 +1,26 @@
-import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
-import MainScreen from './modules/MainScreen'
-import CodeScanner from './modules/CodeScanner'
-import CompleteTransactionScreen from './modules/CompleteTransaction'
+import initializeCore from './core';
 
-const scanCodeRoutes = createStackNavigator({
-  Main: { screen: MainScreen },
-  CodeScanner: { screen: CodeScanner },
-});
 
-const completeTransactionRoutes = createStackNavigator({
-  CompleteTransaction: CompleteTransactionScreen
-});
 
-export default createSwitchNavigator({
-  scanCode: scanCodeRoutes,
-  CompleteTransaction: completeTransactionRoutes
-}, { initialRouteName: 'scanCode' });
+const { MainNavigator } = initializeCore();
+
+export default MainNavigator;
+
+// import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
+// import MainScreen from './modules/MainScreen'
+// import CodeScanner from './modules/CodeScanner'
+// import CompleteTransactionScreen from './modules/CompleteTransaction'
+
+// const scanCodeRoutes = createStackNavigator({
+//   Main: { screen: MainScreen },
+//   CodeScanner: { screen: CodeScanner },
+// });
+
+// const completeTransactionRoutes = createStackNavigator({
+//   CompleteTransaction: CompleteTransactionScreen
+// });
+
+// export default createSwitchNavigator({
+//   scanCode: scanCodeRoutes,
+//   CompleteTransaction: completeTransactionRoutes
+// }, { initialRouteName: 'scanCode' });

@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Text, View, StyleSheet, Alert, Platform, Dimensions } from 'react-native';
+import { NavigationScreenProps } from 'react-navigation'
 import { Constants, BarCodeScanner, Permissions } from 'expo';
 
-export default class App extends Component {
+export default class ScannerCamera extends React.PureComponent<NavigationScreenProps> {
   public static navigationOptions = {
     title: 'Camera',
     headerTintColor: Platform.OS === 'ios' ? undefined : 'white',
@@ -26,7 +27,7 @@ export default class App extends Component {
     });
   };
 
-  handleBarCodeRead = (qr) => {
+  handleBarCodeRead = (qr: { data: string }) => {
     const data = qr.data.split('/');
     Alert.alert(
       'Scan successful!',
