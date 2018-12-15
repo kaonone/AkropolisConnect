@@ -4,16 +4,16 @@ import configureStore from './configureStore';
 import AuthModule from '../modules/Auth';
 
 
-import { IModule } from 'shared/types/app';
+import { IModule, IModules } from 'shared/types/app';
 
-export default function initializeCore(): { store: any, MainNavigator: any } {
-  const modules = {
+export default function initializeCore() {
+  const modules: IModules = {
     Auth: new AuthModule(),
   };
 
   const MainNavigator = makeMainNavigator(modules);
 
-  const modulesArray: IModule[] = Object.keys(modules).map(key => modules[key]);
+  const modulesArray: IModule[] = Object.values(modules);
 
   const store = configureStore(modulesArray, []);
 

@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
-  ScrollView,
   View,
-  Image,
   Platform,
 } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation'
@@ -12,10 +10,6 @@ import { NavigationScreenProps } from 'react-navigation'
 class SignTransaction extends Component<NavigationScreenProps> {
   public static navigationOptions = {
     title: 'Enter a data',
-    headerTintColor: Platform.OS === 'ios' ? undefined : 'white',
-    headerStyle: {
-      backgroundColor: Platform.OS === 'ios' ? undefined : '#6931b6',
-    },
   }
 
   render() {
@@ -34,31 +28,3 @@ class SignTransaction extends Component<NavigationScreenProps> {
 }
 
 export default SignTransaction;
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    backgroundColor: 'white'
-  },
-  main: {
-    flex: .65,
-    paddingTop: 50
-  },
-  signCodeButton: {
-    borderRadius: 10,
-    padding: 35,
-    backgroundColor: '#6931b6',
-    marginBottom: 30
-  },
-  signCode: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  footer: {
-    flex: .35,
-    paddingHorizontal: 40,
-    alignItems: 'center',
-    backgroundColor: 'white',
-    paddingTop: 50
-  }
-});

@@ -1,8 +1,8 @@
 {
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 21875,
+  "packagerPid": 3281,
   "expoServerNgrokUrl": "https://di-5v9.varimartas.akropolisconnect.exp.direct",
   "packagerNgrokUrl": "https://packager.di-5v9.varimartas.akropolisconnect.exp.direct",
-  "ngrokPid": 21895
+  "ngrokPid": 3306
 }

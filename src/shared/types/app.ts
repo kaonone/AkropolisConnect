@@ -9,3 +9,5 @@ export interface IModule {
   getRoutes(): { [key: string]: NavigationScreenRouteConfig },
   getReducer?: () => ModuleReducer,
 }
+
+export type IModules = Record<'Auth', IModule>;

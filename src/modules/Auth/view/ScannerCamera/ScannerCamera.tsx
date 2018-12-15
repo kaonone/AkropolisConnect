@@ -1,15 +1,13 @@
 import React from 'react';
-import { Text, View, StyleSheet, Alert, Platform, Dimensions } from 'react-native';
+import { Text, View, Alert, Platform, Dimensions } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation'
-import { Constants, BarCodeScanner, Permissions } from 'expo';
+import { BarCodeScanner, Permissions } from 'expo';
+
+import styles from './styles'
 
 export default class ScannerCamera extends React.PureComponent<NavigationScreenProps> {
   public static navigationOptions = {
     title: 'Camera',
-    headerTintColor: Platform.OS === 'ios' ? undefined : 'white',
-    headerStyle: {
-      backgroundColor: Platform.OS === 'ios' ? undefined : '#6931b6',
-    },
   }
 
   state = {
@@ -59,20 +57,3 @@ export default class ScannerCamera extends React.PureComponent<NavigationScreenP
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
-  },
-  paragraph: {
-    margin: 24,
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#34495e',
-  },
-});
