@@ -1,6 +1,7 @@
 import { Platform } from 'react-native';
 import { createStackNavigator } from 'react-navigation'
 import { IModules } from 'shared/types/app';
+import getFont from 'shared/helpers/getFont';
 
 export default function makeMainNavigator(modules: IModules) {
 
@@ -12,8 +13,7 @@ export default function makeMainNavigator(modules: IModules) {
       navigationOptions: {
         headerTintColor: Platform.OS === 'ios' ? undefined : 'white',
         headerTitleStyle: {
-          fontWeight: '200',
-          fontFamily: 'Roboto-Regular',
+          ...getFont(),
         },
         headerStyle: {
           backgroundColor: Platform.OS === 'ios' ? undefined : '#6931b6',

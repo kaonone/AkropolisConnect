@@ -1,7 +1,7 @@
 import makeMainNavigator from './MakeNavigator';
 import configureStore from './configureStore';
 
-import AuthModule from '../modules/Auth';
+import AuthModule from 'modules/Auth';
 
 
 import { IModule, IModules } from 'shared/types/app';

@@ -1,5 +1,5 @@
 import React from 'react';
-import Expo from 'expo';
+import { AppLoading } from 'expo';
 import { Provider } from 'react-redux';
 
 import cacheAssetsAsync from './shared/helpers/cacheAssetsAsync';
@@ -26,7 +26,7 @@ export default class App extends React.PureComponent {
         </Provider>
       );
     } else {
-      return <Expo.AppLoading />;
+      return <AppLoading />;
     }
   }
 
@@ -36,6 +36,7 @@ export default class App extends React.PureComponent {
         fonts: [
           {
             'Roboto-Regular': require('../assets/fonts/Roboto-Regular.ttf'),
+            'SFUIDisplay-Medium': require('../assets/fonts/SFUIDisplay-Medium.otf'),
           },
         ],
       });

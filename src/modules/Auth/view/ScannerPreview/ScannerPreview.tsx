@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   Image,
-  Platform,
 } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation'
 import { Button } from 'native-base';

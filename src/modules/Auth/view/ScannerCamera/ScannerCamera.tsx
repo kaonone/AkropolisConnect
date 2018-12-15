@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Alert, Platform, Dimensions } from 'react-native';
+import { Text, View, Alert, Dimensions } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation'
 import { BarCodeScanner, Permissions } from 'expo';
 

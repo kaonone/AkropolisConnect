@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import getFont from 'shared/helpers/getFont';
 
 export default StyleSheet.create({
   root: {
@@ -18,13 +19,11 @@ export default StyleSheet.create({
   },
   signCode: {
     color: 'white',
-    fontWeight: '200',
-    fontFamily: 'Roboto-Regular'
+    ...getFont(),
   },
   description: {
     textAlign: 'center',
-    fontWeight: '200',
-    fontFamily: 'Roboto-Regular'
+    ...getFont(),
   },
   footer: {
     flex: .35,
