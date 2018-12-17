@@ -1,34 +1,52 @@
-import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  ScrollView,
-} from 'react-native';
+import React from 'react';
+import { AppLoading } from 'expo';
+import { Provider } from 'react-redux';
 
+import cacheAssetsAsync from './shared/helpers/cacheAssetsAsync';
 
-interface Props { }
-export default class App extends Component<Props> {
+import initializeCore from './core';
 
-  render() {
-    return (
-      <ScrollView contentContainerStyle={styles.container} keyboardDismissMode='on-drag'>
-        <Text style={styles.title}>
-          AkropolisConnect
-        </Text>
-      </ScrollView>
-    );
+const { MainNavigator, store } = initializeCore();
+
+export default class App extends React.PureComponent {
+  public state = {
+    appIsReady: false,
+  };
+
+  public componentWillMount() {
+    this._loadAssetsAsync();
+  }
+
+  public render() {
+    if (this.state.appIsReady) {
+      return (
+        <Provider store={store}>
+          <MainNavigator />
+        </Provider>
+      );
+    } else {
+      return <AppLoading />;
+    }
+  }
+
+  private async _loadAssetsAsync() {
+    try {
+      await cacheAssetsAsync({
+        fonts: [
+          {
+            'Roboto-Regular': require('../assets/fonts/Roboto-Regular.ttf'),
+            'SFUIDisplay-Medium': require('../assets/fonts/SFUIDisplay-Medium.otf'),
+          },
+        ],
+      });
+    } catch (e) {
+      console.warn(
+        'There was an error caching assets (see: main.js), perhaps due to a ' +
+        'network timeout, so we skipped caching. Reload the app to try again.',
+      );
+      console.log(e.message);
+    } finally {
+      this.setState({ appIsReady: true });
+    }
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
-  },
-  title: {
-    fontSize: 20,
-    textAlign: 'center',
-    marginTop: 64,
-    marginBottom: 20
-  }
-});
