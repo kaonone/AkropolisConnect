@@ -1,7 +1,5 @@
-
-export type IState = {
-  data: IDataState,
+export interface IState {
+  data: IDataState;
 }
 
-export type IDataState = {
-}
+export interface IDataState { }

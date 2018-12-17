@@ -6,7 +6,7 @@ import { IModule } from 'shared/types/app';
 import { reducer } from './redux';
 
 class SignTransactionModule implements IModule {
-  getRoutes() {
+  public getRoutes() {
     return {
       ScannerPreview: {
         screen: ScannerPreview,
@@ -20,7 +20,7 @@ class SignTransactionModule implements IModule {
     };
   }
 
-  getReducer() {
+  public getReducer() {
     return { name: 'orders', reducer };
   }
 

@@ -31,8 +31,8 @@ export default class ScannerPreview extends Component<NavigationScreenProps> {
         <View style={styles.footer}>
           <Button
             block
-            onPress={() => this.props.navigation.navigate('ScannerCamera')}
-            style={styles.signCodeButton}
+            onPress={this.onScanCode}
+            style={styles.signCodeButton as any}
           >
             <Text style={styles.signCode}>SCAN QR-CODE</Text>
           </Button>
@@ -42,5 +42,9 @@ export default class ScannerPreview extends Component<NavigationScreenProps> {
         </View>
       </View>
     );
+  }
+
+  public onScanCode = () => {
+    this.props.navigation.navigate('ScannerCamera');
   }
 }

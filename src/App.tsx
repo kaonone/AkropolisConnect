@@ -8,9 +8,8 @@ import initializeCore from './core';
 
 const { MainNavigator, store } = initializeCore();
 
-
 export default class App extends React.PureComponent {
-  state = {
+  public state = {
     appIsReady: false,
   };
 
@@ -18,7 +17,7 @@ export default class App extends React.PureComponent {
     this._loadAssetsAsync();
   }
 
-  render() {
+  public render() {
     if (this.state.appIsReady) {
       return (
         <Provider store={store}>
