@@ -1,5 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { Constants } from 'expo';
+
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -14,5 +15,8 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#34495e',
+  },
+  target: {
+    marginTop: -40,
   },
 });

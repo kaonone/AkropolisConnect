@@ -12,16 +12,12 @@ class SignTransaction extends Component<NavigationScreenProps> {
   };
 
   public state = {
-    data: '0x000000000000000000000000000000',
-    address: '0x000000000000000000000000000000',
+    data: this.props.navigation.getParam('data', ''),
+    address: this.props.navigation.getParam('address', ''),
     focusedInput: 0,
   };
 
   public render() {
-    const { navigation } = this.props;
-    const data = navigation.getParam('data', 'NO-ID');
-    const address = navigation.getParam('address', 'some default value');
-
     return (
       <View style={styles.root}>
         <View style={{ flexDirection: 'row' }}>
