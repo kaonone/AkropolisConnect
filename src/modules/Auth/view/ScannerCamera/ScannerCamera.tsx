@@ -27,10 +27,6 @@ export default class ScannerCamera extends React.PureComponent<NavigationScreenP
 
   public handleBarCodeRead = (qr: { data: string }) => {
     const data = qr.data.split('/');
-    // Alert.alert(
-    //   'Scan successful!',
-    //   `address: ${data[0]} / data: ${data[1]}`,
-    // );
 
     const resetAction = StackActions.reset({
       index: 1,
