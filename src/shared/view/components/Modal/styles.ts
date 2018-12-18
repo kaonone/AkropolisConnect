@@ -1,4 +1,4 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
 import getFont from 'shared/helpers/getFont';
 
 export default StyleSheet.create({
@@ -8,15 +8,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  // button: {
-  //   backgroundColor: 'lightblue',
-  //   padding: 12,
-  //   margin: 16,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   borderRadius: 4,
-  //   borderColor: 'rgba(0, 0, 0, 0.1)',
-  // },
+
   modalContent: {
     backgroundColor: 'white',
     padding: 22,
@@ -37,11 +29,6 @@ export default StyleSheet.create({
     textAlign: 'center',
     marginHorizontal: 20,
     marginBottom: 30,
-  },
-
-  bottomModal: {
-    justifyContent: 'flex-end',
-    margin: 0,
   },
 
   button: {
