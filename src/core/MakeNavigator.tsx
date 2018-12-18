@@ -11,7 +11,7 @@ export default function makeMainNavigator(modules: IModules) {
   const routes = createStackNavigator({
     ...Auth.getRoutes(),
   }, {
-      initialRouteName: 'SignTransaction',
+      initialRouteName: 'ScannerPreview',
       navigationOptions: {
         headerTintColor: Platform.OS === 'ios' ? undefined : 'white',
         headerTitleStyle: {

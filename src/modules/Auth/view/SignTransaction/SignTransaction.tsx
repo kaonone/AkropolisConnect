@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, Platform } from 'react-native';
-import { NavigationScreenProps } from 'react-navigation';
-import { Content, Button, Item, Label } from 'native-base';
+import { NavigationScreenProps, StackActions, NavigationActions } from 'react-navigation';
+import { Button } from 'native-base';
 
 import { Input, Modal } from 'shared/view/components';
 import styles from './styles';
@@ -68,20 +68,47 @@ class SignTransaction extends Component<NavigationScreenProps, IState> {
           success={success}
           descriptions="Something goes wrong. Please try agian"
           acceptText="TRY AGAIN"
-          onAcceptClick={this.closeModal}
+          onAcceptClick={this.redirectToCamera}
           rejectText="DECIDE LATER"
-          onRejectClick={this.closeModal}
+          onRejectClick={this.redirectToStartPage}
         />
       );
     }
   }
 
   public closeModal = () => {
-    this.setState({ isOpenModal: false })
+    this.setState({ isOpenModal: false });
   }
 
   public openModal = () => {
-    this.setState({ isOpenModal: true })
+    this.setState({ isOpenModal: true });
+  }
+
+  public redirectToCamera = () => {
+    this.closeModal();
+
+    const resetAction = StackActions.reset({
+      index: 1,
+      actions: [
+        NavigationActions.navigate({ routeName: 'ScannerPreview' }),
+        NavigationActions.navigate({ routeName: 'ScannerCamera' }),
+      ],
+    });
+
+    this.props.navigation.dispatch(resetAction);
+  }
+
+  public redirectToStartPage = () => {
+    this.closeModal();
+
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'ScannerPreview' }),
+      ]
+    });
+
+    this.props.navigation.dispatch(resetAction);
   }
 }
 
