@@ -1,6 +1,6 @@
 import React from 'react';
 import { BarCodeScanner, Permissions } from 'expo';
-import { Text, View, Alert, Dimensions, Image } from 'react-native';
+import { Text, View, Dimensions, Image } from 'react-native';
 import { NavigationScreenProps, StackActions, NavigationActions } from 'react-navigation';
 
 import styles from './styles';
@@ -62,7 +62,7 @@ export default class ScannerCamera extends React.PureComponent<NavigationScreenP
               }}
             >
               <Image
-                style={styles.target}
+                style={styles.target as any}
                 source={require('./imgs/target.png')}
               />
             </BarCodeScanner>

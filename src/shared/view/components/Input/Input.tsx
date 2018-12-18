@@ -10,8 +10,12 @@ interface IProps {
   onChange(value: string): void;
 }
 
-export default class Input extends Component<IProps> {
-  public state = {
+interface IState {
+  focused: boolean;
+}
+
+export default class Input extends Component<IProps, IState> {
+  public state: IState = {
     focused: false,
   };
 

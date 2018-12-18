@@ -11,7 +11,7 @@ import styles from './styles';
 
 export default class ScannerPreview extends Component<NavigationScreenProps> {
   public static navigationOptions = {
-    title: 'Acropolis',
+    title: 'Akropolis',
   };
 
   public render() {
