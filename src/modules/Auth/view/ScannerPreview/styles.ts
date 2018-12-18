@@ -15,7 +15,6 @@ export default StyleSheet.create({
     padding: 35,
     backgroundColor: '#6931b6',
     marginBottom: 30,
-
   },
   signCode: {
     color: 'white',

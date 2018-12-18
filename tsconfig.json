@@ -14,7 +14,7 @@
       "modules": ["./src/modules"]
     },
     "rootDirs": [
-      "src",
+      "./src",
     ],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true

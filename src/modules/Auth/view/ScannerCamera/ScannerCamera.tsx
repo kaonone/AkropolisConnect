@@ -1,7 +1,7 @@
 import React from 'react';
 import { BarCodeScanner, Permissions } from 'expo';
-import { Text, View, Alert, Dimensions } from 'react-native';
-import { NavigationScreenProps } from 'react-navigation';
+import { Text, View, Alert, Dimensions, Image } from 'react-native';
+import { NavigationScreenProps, StackActions, NavigationActions } from 'react-navigation';
 
 import styles from './styles';
 
@@ -27,15 +27,22 @@ export default class ScannerCamera extends React.PureComponent<NavigationScreenP
 
   public handleBarCodeRead = (qr: { data: string }) => {
     const data = qr.data.split('/');
-    Alert.alert(
-      'Scan successful!',
-      `address: ${data[0]} / data: ${data[1]}`,
-    );
 
-    this.props.navigation.navigate('CompleteTransaction', {
-      data: data[0],
-      address: data[1],
+    const resetAction = StackActions.reset({
+      index: 1,
+      actions: [
+        NavigationActions.navigate({ routeName: 'ScannerPreview' }),
+        NavigationActions.navigate(
+          {
+            routeName: 'SignTransaction',
+            params: {
+              data: data[0],
+              address: data[1],
+            },
+          })],
     });
+
+    this.props.navigation.dispatch(resetAction);
   }
 
   public render() {
@@ -50,8 +57,15 @@ export default class ScannerCamera extends React.PureComponent<NavigationScreenP
               style={{
                 height: Dimensions.get('window').height,
                 width: Dimensions.get('window').width,
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
-            />
+            >
+              <Image
+                style={styles.target}
+                source={require('./imgs/target.png')}
+              />
+            </BarCodeScanner>
         }
       </View>
     );
