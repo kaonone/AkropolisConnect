@@ -1,6 +1,6 @@
 import React from 'react';
 import { BarCodeScanner, Permissions } from 'expo';
-import { Text, View, Dimensions, Image } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import { NavigationScreenProps, StackActions, NavigationActions } from 'react-navigation';
 
 import styles from './styles';
@@ -51,15 +51,10 @@ export default class ScannerCamera extends React.PureComponent<NavigationScreenP
         {this.state.hasCameraPermission === null ?
           <Text>Requesting for camera permission</Text> :
           this.state.hasCameraPermission === false ?
-            <Text>Camera permission is not granted</Text> :
+            <Text style={styles.noPermission}>Camera permission is not granted</Text> :
             <BarCodeScanner
               onBarCodeRead={this.handleBarCodeRead}
-              style={{
-                height: Dimensions.get('window').height,
-                width: Dimensions.get('window').width,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
+              style={styles.barScanner}
             >
               <Image
                 style={styles.target}

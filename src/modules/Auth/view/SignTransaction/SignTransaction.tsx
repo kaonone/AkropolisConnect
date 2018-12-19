@@ -92,8 +92,7 @@ class SignTransaction extends Component<NavigationScreenProps, IState> {
         NavigationActions.navigate({ routeName: 'ScannerCamera' }),
       ],
     });
-
-    this.props.navigation.dispatch(resetAction);
+    setTimeout(() => this.props.navigation.dispatch(resetAction), 350); // for smooth animation after closing modal
   }
 
   public redirectToStartPage = () => {
@@ -105,8 +104,7 @@ class SignTransaction extends Component<NavigationScreenProps, IState> {
         NavigationActions.navigate({ routeName: 'ScannerPreview' }),
       ],
     });
-
-    this.props.navigation.dispatch(resetAction);
+    setTimeout(() => this.props.navigation.dispatch(resetAction), 350); // for smooth animation after closing modal
   }
 }
 

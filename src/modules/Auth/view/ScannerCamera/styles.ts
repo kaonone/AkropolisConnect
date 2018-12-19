@@ -1,4 +1,4 @@
-import { StyleSheet, ViewStyle, ImageStyle } from 'react-native';
+import { StyleSheet, Dimensions, ImageStyle } from 'react-native';
 import { Constants } from 'expo';
 
 import { ICommonStyle } from 'shared/types/app';
@@ -13,8 +13,19 @@ export default StyleSheet.create<IStyle>({
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
+    backgroundColor: 'black',
   },
+
+  barScanner: {
+    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  noPermission: {
+    color: 'white',
+  },
+
   target: {
     marginTop: -40,
   },
