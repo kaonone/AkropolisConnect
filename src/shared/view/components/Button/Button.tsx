@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Text } from 'native-base';
+import { ViewStyle } from 'react-native';
 
 import styles from './styles';
 
@@ -16,7 +17,7 @@ export default class ButtonComponent extends React.PureComponent<IProps> {
       <Button
         block
         onPress={onPress}
-        style={transparent ? {} : styles.button}
+        style={transparent ? {} : styles.button as ViewStyle}
         transparent={transparent}
       >
         <Text style={transparent ? styles.coloredText : styles.text}>{text}</Text>

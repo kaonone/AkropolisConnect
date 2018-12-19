@@ -1,7 +1,12 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ImageStyle, ViewStyle, TextStyle } from 'react-native';
 import getFont from 'shared/helpers/getFont';
+import { ICommonStyle } from 'shared/types/app';
 
-export default StyleSheet.create({
+interface IStyle extends ICommonStyle {
+  phoneImage: ImageStyle;
+}
+
+export default StyleSheet.create<IStyle>({
   root: {
     flex: 1,
     backgroundColor: 'white',

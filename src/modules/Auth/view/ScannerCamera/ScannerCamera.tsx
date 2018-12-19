@@ -62,7 +62,7 @@ export default class ScannerCamera extends React.PureComponent<NavigationScreenP
               }}
             >
               <Image
-                style={styles.target as any}
+                style={styles.target}
                 source={require('./imgs/target.png')}
               />
             </BarCodeScanner>
