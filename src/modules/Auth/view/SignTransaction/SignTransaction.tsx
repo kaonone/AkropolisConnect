@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
 import { Text, View, Platform } from 'react-native';
-import { NavigationScreenProps } from 'react-navigation';
-import { Content, Button, Item, Label } from 'native-base';
+import { NavigationScreenProps, StackActions, NavigationActions } from 'react-navigation';
+import { Button } from 'native-base';
 
-import { Input } from 'shared/view/components';
+import { Input, Modal } from 'shared/view/components';
 import styles from './styles';
 
-class SignTransaction extends Component<NavigationScreenProps> {
+interface IState {
+  data: string;
+  address: string;
+  isOpenModal: boolean;
+}
+class SignTransaction extends Component<NavigationScreenProps, IState> {
   public static navigationOptions = {
     title: 'Enter a data',
   };
 
-  public state = {
+  public state: IState = {
     data: this.props.navigation.getParam('data', ''),
     address: this.props.navigation.getParam('address', ''),
-    focusedInput: 0,
+    isOpenModal: false,
   };
 
   public render() {
@@ -31,12 +36,12 @@ class SignTransaction extends Component<NavigationScreenProps> {
         </View>
         <Button
           block
-          onPress={() => { }}
-          style={styles.signTransactionButton}
+          onPress={this.openModal}
+          style={styles.signTransactionButton as any}
         >
           <Text style={styles.signTransaction}>COMPLETE TRANSACTION</Text>
         </Button>
-
+        {this.renderModal({ success: false })}
       </View >
     );
   }
@@ -44,6 +49,67 @@ class SignTransaction extends Component<NavigationScreenProps> {
   public onChangeData = (value: string) => this.setState({ data: value });
   public onChangeAddress = (value: string) => this.setState({ address: value });
 
+  public renderModal = ({ success }: { success: boolean }) => {
+
+    if (success) {
+      return (
+        <Modal
+          isOpen={this.state.isOpenModal}
+          success={success}
+          descriptions="Your transaction is sucsesfull go to desktop app"
+          acceptText="OK, THANKS"
+          onAcceptClick={this.closeModal}
+        />
+      );
+    } else {
+      return (
+        <Modal
+          isOpen={this.state.isOpenModal}
+          success={success}
+          descriptions="Something goes wrong. Please try agian"
+          acceptText="TRY AGAIN"
+          onAcceptClick={this.redirectToCamera}
+          rejectText="DECIDE LATER"
+          onRejectClick={this.redirectToStartPage}
+        />
+      );
+    }
+  }
+
+  public closeModal = () => {
+    this.setState({ isOpenModal: false });
+  }
+
+  public openModal = () => {
+    this.setState({ isOpenModal: true });
+  }
+
+  public redirectToCamera = () => {
+    this.closeModal();
+
+    const resetAction = StackActions.reset({
+      index: 1,
+      actions: [
+        NavigationActions.navigate({ routeName: 'ScannerPreview' }),
+        NavigationActions.navigate({ routeName: 'ScannerCamera' }),
+      ],
+    });
+
+    this.props.navigation.dispatch(resetAction);
+  }
+
+  public redirectToStartPage = () => {
+    this.closeModal();
+
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'ScannerPreview' }),
+      ]
+    });
+
+    this.props.navigation.dispatch(resetAction);
+  }
 }
 
 export default SignTransaction;
