@@ -105,7 +105,7 @@ class SignTransaction extends Component<NavigationScreenProps, IState> {
       index: 0,
       actions: [
         NavigationActions.navigate({ routeName: 'ScannerPreview' }),
-      ]
+      ],
     });
 
     this.props.navigation.dispatch(resetAction);

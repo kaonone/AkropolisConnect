@@ -1,22 +1,19 @@
-// @flow
-
 import { bind } from 'decko';
 import BaseApi from './BaseApi';
-import { IResponse } from '../HttpActions';
 
-// import courierConverters from '../converters/courier';
+// import authConverter from '../converters/auth';
 
-class Courier extends BaseApi {
+class Auth extends BaseApi {
 
   @bind
-  public async loadCommandsForCouriers() {
+  public async signTransaction() {
     // const response: IResponse<{ results: ICommandForCourierResponse[] }> = await this.httpActions.get({
-    //   url: '/commands-for-couriers-in-bot/',
+    //   url: '/signTransaction/',
     // });
 
     // const body = response.data;
-    // return body.results.map(courierConverters.commandForCourierFromResponse);
+    // return body.results.map(authConverter);
   }
 }
 
-export default Courier;
+export default Auth;

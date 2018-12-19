@@ -1,4 +1,5 @@
 import { bind } from 'decko';
+import { ApiError } from './error';
 
 class HttpActions {
   private options: IDefaultOptions;
@@ -9,17 +10,17 @@ class HttpActions {
 
   @bind
   public async get<T>(args: IMethodArgs): Promise<IResponse<T>> {
-    return this._fetch({ method: 'get', ...args });
+    return this._fetch<T>({ method: 'get', ...args });
   }
 
   @bind
   public async post<T>(args: IMethodArgs): Promise<IResponse<T>> {
-    return this._fetch({ method: 'post', ...args });
+    return this._fetch<T>({ method: 'post', ...args });
   }
 
   @bind
   public async _fetch<T>({ method, url, data }: IFetchOptions): Promise<IResponse<T>> {
-    const baseUrl = 'https://';
+    const baseUrl = 'https://acropolis_backend';
 
     const privateHeaders = this.options.getPrivateHeaders();
     const resHeaders = { ...this.options.headers, ...privateHeaders };
@@ -38,6 +39,15 @@ class HttpActions {
       status: fetchResponse.status,
       statusText: fetchResponse.statusText,
     };
+  }
+
+  public throwErrorIfExists(response: IResponse<any>) {
+    if (response.data.error || response.status >= 400) {
+      throw new ApiError({
+        code: response.data.error || JSON.stringify(response.data),
+        status: response.status,
+      });
+    }
   }
 }
 

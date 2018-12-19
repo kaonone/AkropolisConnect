@@ -13,7 +13,7 @@ export default function initializeCore() {
 
   const modulesArray: IModule[] = Object.values(modules);
 
-  const store = configureStore(modulesArray, []);
+  const store = configureStore(modulesArray);
 
   return { store, MainNavigator };
 }

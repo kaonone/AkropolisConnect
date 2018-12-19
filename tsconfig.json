@@ -8,11 +8,6 @@
     "strict": true,
     "moduleResolution": "node",
     "baseUrl": "./src",
-    "paths": 
-    {
-      "shared": ["./src/shared"],
-      "modules": ["./src/modules"]
-    },
     "rootDirs": [
       "./src",
     ],
