@@ -18,15 +18,10 @@ export default class ScannerPreview extends Component<NavigationScreenProps> {
     return (
       <View style={styles.root}>
         <View style={styles.main}>
-          <View style={{ alignItems: 'center' }}>
-            <Image
-              source={require('./imgs/Phone.png')}
-            />
-            <Image
-              source={require('./imgs/qr.png')}
-              style={{ marginTop: -380 }}
-            />
-          </View>
+          <Image
+            style={styles.phoneImage}
+            source={require('./imgs/phone.png')}
+          />
         </View>
         <View style={styles.footer}>
           <Button

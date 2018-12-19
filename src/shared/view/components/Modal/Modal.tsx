@@ -26,7 +26,10 @@ export default class ModalComponent extends React.PureComponent<IProps> {
       <View style={styles.container}>
         <Modal isVisible={this.props.isOpen}>
           <View style={styles.modalContent}>
-            <Image style={{ marginBottom: 20 }} source={require('./imgs/success.png')} />
+            <Image
+              style={{ marginBottom: 20 }}
+              source={success ? require('./imgs/success.png') : require('./imgs/error.png')}
+            />
             <Text style={styles.title}>{success ? 'Successfull !' : 'Error !'}</Text>
             <Text style={styles.description}>{descriptions}</Text>
             <Button style={styles.button as any} block onPress={onAcceptClick}>

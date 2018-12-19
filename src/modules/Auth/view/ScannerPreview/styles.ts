@@ -5,11 +5,20 @@ export default StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor: 'white',
+    justifyContent: 'flex-end',
   },
   main: {
-    flex: .65,
-    paddingTop: 50,
+    flex: .6,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
   },
+
+  phoneImage: {
+    flexShrink: 1,
+    width: '100%',
+    resizeMode: 'cover',
+  },
+
   signCodeButton: {
     borderRadius: 10,
     padding: 35,
@@ -25,7 +34,7 @@ export default StyleSheet.create({
     ...getFont(),
   },
   footer: {
-    flex: .35,
+    flex: .3,
     paddingHorizontal: 40,
     alignItems: 'center',
     backgroundColor: 'white',
