@@ -30,17 +30,4 @@ export default StyleSheet.create({
     marginHorizontal: 20,
     marginBottom: 30,
   },
-
-  button: {
-    padding: 35,
-    backgroundColor: '#6931b6',
-    borderRadius: 10,
-  },
-
-  buttonText: {
-    color: 'white',
-    textTransform: 'uppercase',
-    ...getFont(),
-  },
-
 });

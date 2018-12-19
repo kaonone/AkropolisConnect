@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Text, View, Platform } from 'react-native';
 import { NavigationScreenProps, StackActions, NavigationActions } from 'react-navigation';
-import { Button } from 'native-base';
 
-import { Input, Modal } from 'shared/view/components';
+import { Input, Modal, Button } from 'shared/view/components';
 import styles from './styles';
 
 interface IState {
@@ -34,13 +33,12 @@ class SignTransaction extends Component<NavigationScreenProps, IState> {
         <View style={{ marginBottom: Platform.OS === 'android' ? 50 : 0 }}>
           <Input label={'Enter Adress'} value={this.state.address} onChange={this.onChangeAddress} last />
         </View>
-        <Button
-          block
-          onPress={this.openModal}
-          style={styles.signTransactionButton as any}
-        >
-          <Text style={styles.signTransaction}>COMPLETE TRANSACTION</Text>
-        </Button>
+        <View style={styles.signTransaction}>
+          <Button
+            onPress={this.openModal}
+            text="COMPLETE TRANSACTION"
+          />
+        </View>
         {this.renderModal({ success: false })}
       </View >
     );
@@ -105,7 +103,7 @@ class SignTransaction extends Component<NavigationScreenProps, IState> {
       index: 0,
       actions: [
         NavigationActions.navigate({ routeName: 'ScannerPreview' }),
-      ]
+      ],
     });
 
     this.props.navigation.dispatch(resetAction);

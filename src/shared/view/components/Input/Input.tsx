@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Item, Label, Input as NBInput, Text, View } from 'native-base';
 import { TextInput, Platform } from 'react-native';
+
+import { mainColor } from 'shared/constants';
+
 import styles from './styles';
 
 interface IProps {
@@ -14,7 +17,7 @@ interface IState {
   focused: boolean;
 }
 
-export default class Input extends Component<IProps, IState> {
+export default class Input extends React.PureComponent<IProps, IState> {
   public state: IState = {
     focused: false,
   };
@@ -50,7 +53,7 @@ export default class Input extends Component<IProps, IState> {
         stackedLabel
         style={[
           this.state.focused ? {
-            borderBottomColor: '#6931b6',
+            borderBottomColor: mainColor,
             borderBottomWidth: 2,
           } : {},
         ]}

@@ -19,16 +19,11 @@ export default StyleSheet.create({
     resizeMode: 'cover',
   },
 
-  signCodeButton: {
-    borderRadius: 10,
-    padding: 35,
-    backgroundColor: '#6931b6',
-    marginBottom: 30,
-  },
   signCode: {
-    color: 'white',
-    ...getFont(),
+    marginBottom: 30,
+    width: '100%',
   },
+
   description: {
     textAlign: 'center',
     ...getFont(),
