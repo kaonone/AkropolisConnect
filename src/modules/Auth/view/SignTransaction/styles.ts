@@ -14,18 +14,9 @@ export default StyleSheet.create({
     flex: 0.5,
     textAlign: 'center',
   },
-  signTransactionButton: {
-    marginHorizontal: Platform.OS === 'ios' ? 20 : 10,
-    marginTop: Platform.OS === 'ios' ? 30 : 0,
-    padding: 35,
-    marginBottom: 30,
-    backgroundColor: '#6931b6',
-    borderRadius: 10,
-  },
-
   signTransaction: {
-    color: 'white',
-    textTransform: 'uppercase',
-    ...getFont(),
+    width: '100%',
+    paddingHorizontal: Platform.OS === 'ios' ? 20 : 10,
+    marginTop: Platform.OS === 'ios' ? 30 : 0,
   },
 });

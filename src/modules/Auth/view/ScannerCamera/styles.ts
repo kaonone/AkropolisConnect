@@ -1,21 +1,31 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet, Dimensions, ImageStyle } from 'react-native';
 import { Constants } from 'expo';
 
-export default StyleSheet.create({
+import { ICommonStyle } from 'shared/types/app';
+
+interface IStyle extends ICommonStyle {
+  target: ImageStyle;
+}
+
+export default StyleSheet.create<IStyle>({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
+    backgroundColor: 'black',
   },
-  paragraph: {
-    margin: 24,
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#34495e',
+
+  barScanner: {
+    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
+  noPermission: {
+    color: 'white',
+  },
+
   target: {
     marginTop: -40,
   },
