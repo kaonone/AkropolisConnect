@@ -2,6 +2,7 @@ import { ImageStyle, TextStyle, ViewStyle } from 'react-native';
 import { NavigationScreenRouteConfig } from 'react-navigation';
 import { SagaIterator } from 'redux-saga';
 import { Reducer } from 'redux';
+import { namespace as AuthNamespace } from 'modules/Auth';
 
 import Api from 'service/api';
 
@@ -16,6 +17,9 @@ export interface IModule {
   getSaga?(): (deps: IDependencies) => SagaIterator;
 }
 
+export interface IAppReduxState {
+  auth: AuthNamespace.IReduxState;
+}
 export interface IDependencies {
   api: Api;
 }

@@ -1,27 +1,60 @@
 import React, { Component } from 'react';
 import { Text, View, Platform } from 'react-native';
+import { connect } from 'react-redux';
 import { NavigationScreenProps, StackActions, NavigationActions } from 'react-navigation';
+import { Spinner } from 'native-base';
 
 import { Input, Modal, Button } from 'shared/view/components';
+import { ITransaction } from 'shared/models/types';
+import { IAppReduxState } from 'shared/types/app';
+import { ICommunication } from 'shared/types/redux';
+
+import { selectors } from '../../redux';
 import styles from './styles';
+
+interface IStateProps {
+  transaction: ITransaction | null;
+  loadingTransaction: ICommunication;
+}
 
 interface IState {
   data: string;
   address: string;
   isOpenModal: boolean;
 }
-class SignTransaction extends Component<NavigationScreenProps, IState> {
+
+type IProps = IStateProps & NavigationScreenProps;
+
+class SignTransaction extends Component<IProps, IState> {
   public static navigationOptions = {
     title: 'Enter a data',
   };
 
   public state: IState = {
-    data: this.props.navigation.getParam('data', ''),
-    address: this.props.navigation.getParam('address', ''),
+
+    data: '',
+    address: '',
     isOpenModal: false,
   };
 
+  public componentDidUpdate(prevProps: IProps) {
+    const { loadingTransaction, transaction } = this.props;
+    if (prevProps.loadingTransaction.isRequesting && !loadingTransaction.isRequesting && transaction) {
+      this.setState({ address: transaction.address, data: transaction.data });
+    }
+  }
+
   public render() {
+    const { loadingTransaction } = this.props;
+
+    if (loadingTransaction.isRequesting) {
+      return <Spinner color="black" />;
+    }
+
+    if (loadingTransaction.error) {
+      return <Text style={styles.error}>an error occurred while loading the data for the transaction</Text>;
+    }
+
     return (
       <View style={styles.root}>
         <View style={{ flexDirection: 'row' }}>
@@ -31,7 +64,7 @@ class SignTransaction extends Component<NavigationScreenProps, IState> {
           <Input label={'Enter Data'} value={this.state.data} onChange={this.onChangeData} />
         </View>
         <View style={{ marginBottom: Platform.OS === 'android' ? 50 : 0 }}>
-          <Input label={'Enter Adress'} value={this.state.address} onChange={this.onChangeAddress} last />
+          <Input label={'Enter Address'} value={this.state.address} onChange={this.onChangeAddress} last />
         </View>
         <View style={styles.signTransaction}>
           <Button
@@ -108,4 +141,11 @@ class SignTransaction extends Component<NavigationScreenProps, IState> {
   }
 }
 
-export default SignTransaction;
+function mapState(state: IAppReduxState): IStateProps {
+  return {
+    loadingTransaction: selectors.selectCommunication(state, 'loadingTransaction'),
+    transaction: selectors.selectTransaction(state),
+  };
+}
+
+export default connect(mapState)(SignTransaction);

@@ -1,11 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { BarCodeScanner, Permissions } from 'expo';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, ActivityIndicatorProps } from 'react-native';
 import { NavigationScreenProps, StackActions, NavigationActions } from 'react-navigation';
+
+import { actions } from '../../redux';
 
 import styles from './styles';
 
-export default class ScannerCamera extends React.PureComponent<NavigationScreenProps> {
+interface IActionProps {
+  loadTransaction: typeof actions.loadTransaction;
+}
+
+type IProps = NavigationScreenProps & IActionProps;
+
+class ScannerCamera extends React.PureComponent<IProps> {
   public static navigationOptions = {
     title: 'Camera',
   };
@@ -26,20 +35,16 @@ export default class ScannerCamera extends React.PureComponent<NavigationScreenP
   }
 
   public handleBarCodeRead = (qr: { data: string }) => {
-    const data = qr.data.split('/');
+    const linkToTransaction = qr.data;
+
+    this.props.loadTransaction({ linkToTransaction });
 
     const resetAction = StackActions.reset({
       index: 1,
       actions: [
         NavigationActions.navigate({ routeName: 'ScannerPreview' }),
-        NavigationActions.navigate(
-          {
-            routeName: 'SignTransaction',
-            params: {
-              data: data[0],
-              address: data[1],
-            },
-          })],
+        NavigationActions.navigate({ routeName: 'SignTransaction' }),
+      ],
     });
 
     this.props.navigation.dispatch(resetAction);
@@ -66,3 +71,9 @@ export default class ScannerCamera extends React.PureComponent<NavigationScreenP
     );
   }
 }
+
+const actionProps: IActionProps = {
+  loadTransaction: actions.loadTransaction,
+};
+
+export default connect(null, actionProps)(ScannerCamera);
