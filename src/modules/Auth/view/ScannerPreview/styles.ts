@@ -1,31 +1,40 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ImageStyle, ViewStyle, TextStyle } from 'react-native';
 import getFont from 'shared/helpers/getFont';
+import { ICommonStyle } from 'shared/types/app';
 
-export default StyleSheet.create({
+interface IStyle extends ICommonStyle {
+  phoneImage: ImageStyle;
+}
+
+export default StyleSheet.create<IStyle>({
   root: {
     flex: 1,
     backgroundColor: 'white',
+    justifyContent: 'flex-end',
   },
   main: {
-    flex: .65,
-    paddingTop: 50,
+    flex: .6,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
   },
-  signCodeButton: {
-    borderRadius: 10,
-    padding: 35,
-    backgroundColor: '#6931b6',
-    marginBottom: 30,
+
+  phoneImage: {
+    flexShrink: 1,
+    width: '100%',
+    resizeMode: 'cover',
   },
+
   signCode: {
-    color: 'white',
-    ...getFont(),
+    marginBottom: 30,
+    width: '100%',
   },
+
   description: {
     textAlign: 'center',
     ...getFont(),
   },
   footer: {
-    flex: .35,
+    flex: .3,
     paddingHorizontal: 40,
     alignItems: 'center',
     backgroundColor: 'white',

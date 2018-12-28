@@ -3,6 +3,7 @@ import { createStackNavigator } from 'react-navigation';
 
 import { IModules } from 'shared/types/app';
 import getFont from 'shared/helpers/getFont';
+import { mainColor } from 'shared/constants';
 
 export default function makeMainNavigator(modules: IModules) {
 
@@ -18,7 +19,7 @@ export default function makeMainNavigator(modules: IModules) {
           ...getFont(),
         },
         headerStyle: {
-          backgroundColor: Platform.OS === 'ios' ? undefined : '#6931b6',
+          backgroundColor: Platform.OS === 'ios' ? undefined : mainColor,
         },
       },
     });

@@ -36,6 +36,7 @@ export default class App extends React.PureComponent {
           {
             'Roboto-Regular': require('../assets/fonts/Roboto-Regular.ttf'),
             'SFUIDisplay-Medium': require('../assets/fonts/SFUIDisplay-Medium.otf'),
+            'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
           },
         ],
       });

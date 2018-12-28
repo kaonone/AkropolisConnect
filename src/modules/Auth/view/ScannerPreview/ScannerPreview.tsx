@@ -5,7 +5,8 @@ import {
   Image,
 } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
-import { Button } from 'native-base';
+
+import { Button } from 'shared/view/components';
 
 import styles from './styles';
 
@@ -18,24 +19,18 @@ export default class ScannerPreview extends Component<NavigationScreenProps> {
     return (
       <View style={styles.root}>
         <View style={styles.main}>
-          <View style={{ alignItems: 'center' }}>
-            <Image
-              source={require('./imgs/Phone.png')}
-            />
-            <Image
-              source={require('./imgs/qr.png')}
-              style={{ marginTop: -380 }}
-            />
-          </View>
+          <Image
+            style={styles.phoneImage}
+            source={require('./imgs/phone.png')}
+          />
         </View>
         <View style={styles.footer}>
-          <Button
-            block
-            onPress={this.onScanCode}
-            style={styles.signCodeButton as any}
-          >
-            <Text style={styles.signCode}>SCAN QR-CODE</Text>
-          </Button>
+          <View style={styles.signCode}>
+            <Button
+              onPress={this.onScanCode}
+              text="SCAN QR-CODE"
+            />
+          </View>
           <View style={{ paddingHorizontal: 40 }}>
             <Text style={styles.description}>Please scan QR-code in your web app</Text>
           </View>

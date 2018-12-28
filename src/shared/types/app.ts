@@ -1,3 +1,4 @@
+import { ImageStyle, TextStyle, ViewStyle } from 'react-native';
 import { NavigationScreenRouteConfig } from 'react-navigation';
 import { SagaIterator } from 'redux-saga';
 import { Reducer } from 'redux';
@@ -18,4 +19,8 @@ export interface IModule {
 export interface IDependencies {
   api: Api;
 }
+export interface ICommonStyle {
+  [key: string]: ImageStyle | TextStyle | ViewStyle;
+}
+
 export type IModules = Record<'Auth', IModule>;

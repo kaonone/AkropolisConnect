@@ -4,8 +4,9 @@ import {
   View,
   Image,
 } from 'react-native';
-import { Button } from 'native-base';
 import Modal from 'react-native-modal';
+
+import Button from '../Button/Button';
 
 import styles from './styles';
 
@@ -26,21 +27,24 @@ export default class ModalComponent extends React.PureComponent<IProps> {
       <View style={styles.container}>
         <Modal isVisible={this.props.isOpen}>
           <View style={styles.modalContent}>
-            <Image style={{ marginBottom: 20 }} source={require('./imgs/success.png')} />
+            <Image
+              style={{ marginBottom: 20 }}
+              source={success ? require('./imgs/success.png') : require('./imgs/error.png')}
+            />
             <Text style={styles.title}>{success ? 'Successfull !' : 'Error !'}</Text>
             <Text style={styles.description}>{descriptions}</Text>
-            <Button style={styles.button as any} block onPress={onAcceptClick}>
-              <Text style={styles.buttonText} >{acceptText}</Text>
-            </Button>
+            <Button
+              onPress={onAcceptClick}
+              text={acceptText}
+            />
             {rejectText && onRejectClick &&
-              <Button
-                transparent
-                block
-                onPress={onRejectClick}
-                style={{ marginTop: 20 }}
-              >
-                <Text style={[styles.buttonText, { color: '#6931b6' }]} >{rejectText}</Text>
-              </Button>
+              <View style={{ marginTop: 20 }}>
+                <Button
+                  onPress={onRejectClick}
+                  text={rejectText}
+                  transparent
+                />
+              </View>
             }
           </View>
         </Modal>
