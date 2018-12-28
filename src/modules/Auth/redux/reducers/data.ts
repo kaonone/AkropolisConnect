@@ -1,4 +1,3 @@
-// @flow
 import { IDataState } from '../../namespace';
 import initial from '../initial';
 

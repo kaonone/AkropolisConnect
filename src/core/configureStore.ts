@@ -1,13 +1,14 @@
 import {
-  compose, applyMiddleware, createStore, combineReducers, Reducer,
+  compose, applyMiddleware, createStore, combineReducers,
   Middleware,
 } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 
-import { IModule } from 'shared/types/app';
+import Api from 'service/api';
+import { IDependencies, IModule } from 'shared/types/app';
 
 function configureStore(
   modules: IModule[],
-  middlewares: Middleware[],
 ) {
   const modulesReducers = modules.reduce((reducers, module) => {
     if (module.getReducer) {
@@ -16,15 +17,32 @@ function configureStore(
     }
     return reducers;
   }, {});
-
   const reducer = (combineReducers({
     ...modulesReducers,
   }));
 
-  return (createStore(
+  const api = new Api();
+  const extraArguments: IDependencies = {
+    api,
+  };
+  const sagaMiddleware = createSagaMiddleware();
+
+  const middlewares: Middleware[] = [
+    sagaMiddleware,
+  ];
+
+  const store = createStore(
     reducer,
     compose(applyMiddleware(...middlewares)),
-  ));
+  );
+
+  modules.forEach((module: IModule) => {
+    if (module.getSaga) {
+      sagaMiddleware.run(module.getSaga(), extraArguments);
+    }
+  });
+
+  return store;
 }
 
 export default configureStore;

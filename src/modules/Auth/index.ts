@@ -3,7 +3,7 @@ import ScannerCamera from './view/ScannerCamera/ScannerCamera';
 import SignTransaction from './view/SignTransaction/SignTransaction';
 
 import { IModule } from 'shared/types/app';
-import { reducer } from './redux';
+import { reducer, rootSaga } from './redux';
 
 class SignTransactionModule implements IModule {
   public getRoutes() {
@@ -22,6 +22,10 @@ class SignTransactionModule implements IModule {
 
   public getReducer() {
     return { name: 'orders', reducer };
+  }
+
+  public getSaga() {
+    return rootSaga;
   }
 
 }
