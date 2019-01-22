@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Platform } from 'react-native';
+import { Text, View, Platform, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationScreenProps, StackActions, NavigationActions } from 'react-navigation';
 import { Spinner } from 'native-base';
@@ -8,6 +8,7 @@ import { Input, Modal, Button } from 'shared/view/components';
 import { ITransaction } from 'shared/models/types';
 import { IAppReduxState } from 'shared/types/app';
 import { ICommunication } from 'shared/types/redux';
+import TrustWallet, { MessagePayload, TransactionPayload } from 'react-native-trust-sdk';
 
 import { selectors } from '../../redux';
 import styles from './styles';
@@ -21,6 +22,8 @@ interface IState {
   data: string;
   address: string;
   isOpenModal: boolean;
+  amount: string;
+  message: string;
 }
 
 type IProps = IStateProps & NavigationScreenProps;
@@ -30,12 +33,29 @@ class SignTransaction extends Component<IProps, IState> {
     title: 'Enter a data',
   };
 
-  public state: IState = {
+  public callbackScheme: string = 'akropolisconnect://';
+  public wallet: TrustWallet = new TrustWallet(this.callbackScheme);
 
-    data: '',
+  public state: IState = {
+    // address: '0xE47494379c1d48ee73454C251A6395FDd4F9eb43',
+    // data: '0x8f834227000000000000000000000000000000005224',
     address: '',
+    amount: '1',
+    message: 'hello trust',
+    data: '',
     isOpenModal: false,
   };
+
+  public componentDidMount() {
+    const { transaction } = this.props;
+    if (transaction) {
+      this.setState({ address: transaction.address, data: transaction.data });
+    }
+  }
+
+  public componentWillUnmount() {
+    this.wallet.cleanup();
+  }
 
   public componentDidUpdate(prevProps: IProps) {
     const { loadingTransaction, transaction } = this.props;
@@ -72,9 +92,42 @@ class SignTransaction extends Component<IProps, IState> {
             text="COMPLETE TRANSACTION"
           />
         </View>
+        <View style={styles.signTransaction}>
+          <Button
+            onPress={this.signMsg}
+            text="test signMassage"
+          />
+        </View>
+        <View style={styles.signTransaction}>
+          <Button
+            onPress={this.signTx}
+            text="test singTransaction"
+          />
+        </View>
         {this.renderModal({ success: false })}
       </View >
     );
+  }
+
+  public signTx = () => {
+    const payload = new TransactionPayload(this.state.address, this.state.amount, this.state.data);
+    this.wallet.signTransaction(payload)
+      .then((result) => {
+        Alert.alert('Transaction Signed', result);
+      })
+      .catch((error) => {
+        Alert.alert('Error', error.msg);
+      });
+  }
+
+  public signMsg = () => {
+    const payload = new MessagePayload(this.state.message);
+    this.wallet.signMessage(payload)
+      .then((result) => {
+        Alert.alert('Message Signed', result);
+      }).catch((error) => {
+        Alert.alert('Error', error.msg);
+      });
   }
 
   public onChangeData = (value: string) => this.setState({ data: value });
