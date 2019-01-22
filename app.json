@@ -2,6 +2,7 @@
   "expo": {
     "name": "akropolisconnect",
     "slug": "akropolisconnect",
+    "scheme": "akropolisconnect",
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": [
@@ -11,8 +12,9 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "splash": {
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/icons/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#212121"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -21,15 +23,20 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.akropolis.connect.test1",
+      "infoPlist": {
+        "LSApplicationQueriesSchemes": ["trust"],
+        "CFBundleURLTypes": [{"CFBundleTypeRole": "Editor", "CFBundleURLSchemes": ["akropolisconnect"]}]
+      }
     },
     "android": {
-      "package": "com.testcompany.testname",
+      "package": "com.akropolis.connect",
       "intentFilters": [
         {
           "action": "VIEW",
           "data": {
-            "scheme": "trust-rn-example"
+            "scheme": "akropolisconnect"
           },
           "category": [
             "DEFAULT"

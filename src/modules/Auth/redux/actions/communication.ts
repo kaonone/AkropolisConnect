@@ -3,14 +3,14 @@ import { makeCommunicationActionCreators } from 'shared/helpers/redux';
 import * as NS from '../../namespace';
 
 export const {
-  execute: signTransaction,
-  completed: signTransactionCompleted,
-  failed: signTransactionFail,
+  execute: loadTransaction,
+  completed: loadTransactionCompleted,
+  failed: loadTransactionFail,
 } =
   makeCommunicationActionCreators<
-    NS.ISignTransaction, NS.ISignTransactionCompleted, NS.ISignTransactionFail
+    NS.ILoadTransaction, NS.ILoadTransactionCompleted, NS.ILoadTransactionFail
   >(
-    'AUTH:SIGN_TRANSACTION',
-    'AUTH:SIGN_TRANSACTION_COMPLETED',
-    'AUTH:SIGN_TRANSACTION_FAIL',
+    'AUTH:LOAD_TRANSACTION',
+    'AUTH:LOAD_TRANSACTION_COMPLETED',
+    'AUTH:LOAD_TRANSACTION_FAIL',
   );

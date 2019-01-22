@@ -1,18 +1,21 @@
 import { bind } from 'decko';
 import BaseApi from './BaseApi';
+import { ITransaction } from 'shared/models/types';
 
+import { IResponse } from '../HttpActions';
 // import authConverter from '../converters/auth';
 
 class Auth extends BaseApi {
 
   @bind
-  public async signTransaction() {
-    // const response: IResponse<{ results: ICommandForCourierResponse[] }> = await this.httpActions.get({
+  public async loadTransaction() {
+    // const response: IResponse<{ results: ITransaction }> = await this.httpActions.get({
     //   url: '/signTransaction/',
     // });
 
     // const body = response.data;
-    // return body.results.map(authConverter);
+    return { address: 'address', data: 'data' };
+    // return authConverter(body.results);
   }
 }
 

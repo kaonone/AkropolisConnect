@@ -1,27 +1,80 @@
 import React, { Component } from 'react';
-import { Text, View, Platform } from 'react-native';
+import { Text, View, Platform, Alert } from 'react-native';
+import { connect } from 'react-redux';
 import { NavigationScreenProps, StackActions, NavigationActions } from 'react-navigation';
+import { Spinner } from 'native-base';
 
 import { Input, Modal, Button } from 'shared/view/components';
+import { ITransaction } from 'shared/models/types';
+import { IAppReduxState } from 'shared/types/app';
+import { ICommunication } from 'shared/types/redux';
+import TrustWallet, { MessagePayload, TransactionPayload } from 'react-native-trust-sdk';
+
+import { selectors } from '../../redux';
 import styles from './styles';
+
+interface IStateProps {
+  transaction: ITransaction | null;
+  loadingTransaction: ICommunication;
+}
 
 interface IState {
   data: string;
   address: string;
   isOpenModal: boolean;
+  amount: string;
+  message: string;
 }
-class SignTransaction extends Component<NavigationScreenProps, IState> {
+
+type IProps = IStateProps & NavigationScreenProps;
+
+class SignTransaction extends Component<IProps, IState> {
   public static navigationOptions = {
     title: 'Enter a data',
   };
 
+  public callbackScheme: string = 'akropolisconnect://';
+  public wallet: TrustWallet = new TrustWallet(this.callbackScheme);
+
   public state: IState = {
-    data: this.props.navigation.getParam('data', ''),
-    address: this.props.navigation.getParam('address', ''),
+    // address: '0xE47494379c1d48ee73454C251A6395FDd4F9eb43',
+    // data: '0x8f834227000000000000000000000000000000005224',
+    address: '',
+    amount: '1',
+    message: 'hello trust',
+    data: '',
     isOpenModal: false,
   };
 
+  public componentDidMount() {
+    const { transaction } = this.props;
+    if (transaction) {
+      this.setState({ address: transaction.address, data: transaction.data });
+    }
+  }
+
+  public componentWillUnmount() {
+    this.wallet.cleanup();
+  }
+
+  public componentDidUpdate(prevProps: IProps) {
+    const { loadingTransaction, transaction } = this.props;
+    if (prevProps.loadingTransaction.isRequesting && !loadingTransaction.isRequesting && transaction) {
+      this.setState({ address: transaction.address, data: transaction.data });
+    }
+  }
+
   public render() {
+    const { loadingTransaction } = this.props;
+
+    if (loadingTransaction.isRequesting) {
+      return <Spinner color="black" />;
+    }
+
+    if (loadingTransaction.error) {
+      return <Text style={styles.error}>an error occurred while loading the data for the transaction</Text>;
+    }
+
     return (
       <View style={styles.root}>
         <View style={{ flexDirection: 'row' }}>
@@ -31,7 +84,7 @@ class SignTransaction extends Component<NavigationScreenProps, IState> {
           <Input label={'Enter Data'} value={this.state.data} onChange={this.onChangeData} />
         </View>
         <View style={{ marginBottom: Platform.OS === 'android' ? 50 : 0 }}>
-          <Input label={'Enter Adress'} value={this.state.address} onChange={this.onChangeAddress} last />
+          <Input label={'Enter Address'} value={this.state.address} onChange={this.onChangeAddress} last />
         </View>
         <View style={styles.signTransaction}>
           <Button
@@ -39,9 +92,42 @@ class SignTransaction extends Component<NavigationScreenProps, IState> {
             text="COMPLETE TRANSACTION"
           />
         </View>
+        <View style={styles.signTransaction}>
+          <Button
+            onPress={this.signMsg}
+            text="test signMassage"
+          />
+        </View>
+        <View style={styles.signTransaction}>
+          <Button
+            onPress={this.signTx}
+            text="test singTransaction"
+          />
+        </View>
         {this.renderModal({ success: false })}
       </View >
     );
+  }
+
+  public signTx = () => {
+    const payload = new TransactionPayload(this.state.address, this.state.amount, this.state.data);
+    this.wallet.signTransaction(payload)
+      .then((result) => {
+        Alert.alert('Transaction Signed', result);
+      })
+      .catch((error) => {
+        Alert.alert('Error', error.msg);
+      });
+  }
+
+  public signMsg = () => {
+    const payload = new MessagePayload(this.state.message);
+    this.wallet.signMessage(payload)
+      .then((result) => {
+        Alert.alert('Message Signed', result);
+      }).catch((error) => {
+        Alert.alert('Error', error.msg);
+      });
   }
 
   public onChangeData = (value: string) => this.setState({ data: value });
@@ -108,4 +194,11 @@ class SignTransaction extends Component<NavigationScreenProps, IState> {
   }
 }
 
-export default SignTransaction;
+function mapState(state: IAppReduxState): IStateProps {
+  return {
+    loadingTransaction: selectors.selectCommunication(state, 'loadingTransaction'),
+    transaction: selectors.selectTransaction(state),
+  };
+}
+
+export default connect(mapState)(SignTransaction);

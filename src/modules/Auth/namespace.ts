@@ -1,15 +1,31 @@
-import { IPlainAction, IAction, IPlainFailAction, ICommunication } from 'shared/types/redux';
+import { IAction, IPlainFailAction, ICommunication } from 'shared/types/redux';
+import { ITransaction } from 'shared/models/types';
 
 export interface IReduxState {
   data: IDataState;
   communication: {
-    signingTransaction: ICommunication<string>;
+    loadingTransaction: ICommunication<string>;
   };
 }
 
-export interface IDataState { }
+export interface IDataState {
+  transaction: ITransaction | null;
+}
 
-export type ISignTransaction = IPlainAction<'AUTH:SIGN_TRANSACTION'>;
-export type ISignTransactionCompleted = IAction<'AUTH:SIGN_TRANSACTION_COMPLETED',
-  { isAccepted: boolean }>;
-export type ISignTransactionFail = IPlainFailAction<'AUTH:SIGN_TRANSACTION_FAIL'>;
+export interface IQRCodeData {
+  abiUrl: string;
+  uuid: string;
+}
+
+export type ISetTransaction = IAction<'AUTH:SET_TRANSACTION', { linkToTransaction: string }>;
+
+export type ILoadTransaction = IAction<'AUTH:LOAD_TRANSACTION', { linkToTransaction: string }>;
+export type ILoadTransactionCompleted = IAction<'AUTH:LOAD_TRANSACTION_COMPLETED',
+  { transaction: ITransaction }>;
+export type ILoadTransactionFail = IPlainFailAction<'AUTH:LOAD_TRANSACTION_FAIL'>;
+
+export type IParseTransactionLinkFail = IPlainFailAction<'AUTH:PARSE_TRANSACTION_LINK_FAIL'>;
+
+export type IAction =
+  ILoadTransaction | ILoadTransactionCompleted | ILoadTransactionFail
+  | ISetTransaction | IParseTransactionLinkFail;

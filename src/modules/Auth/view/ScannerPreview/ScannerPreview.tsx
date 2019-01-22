@@ -21,7 +21,7 @@ export default class ScannerPreview extends Component<NavigationScreenProps> {
         <View style={styles.main}>
           <Image
             style={styles.phoneImage}
-            source={require('./imgs/phone.png')}
+            source={require('./images/phone.png')}
           />
         </View>
         <View style={styles.footer}>

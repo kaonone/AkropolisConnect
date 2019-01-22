@@ -1,6 +1,7 @@
 import React from 'react';
 import { AppLoading } from 'expo';
 import { Provider } from 'react-redux';
+import { Root } from 'native-base';
 
 import cacheAssetsAsync from './shared/helpers/cacheAssetsAsync';
 
@@ -20,9 +21,11 @@ export default class App extends React.PureComponent {
   public render() {
     if (this.state.appIsReady) {
       return (
-        <Provider store={store}>
-          <MainNavigator />
-        </Provider>
+        <Root>
+          <Provider store={store}>
+            <MainNavigator />
+          </Provider>
+        </Root>
       );
     } else {
       return <AppLoading />;

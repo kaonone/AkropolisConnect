@@ -6,14 +6,14 @@ import * as NS from '../../namespace';
 
 import initial from '../initial';
 
-export const communicationReducer = combineReducers<NS.IReduxState['communication']>({
-  signingTransaction: makeCommunicationReducer<
-    NS.ISignTransaction,
-    NS.ISignTransactionCompleted,
-    NS.ISignTransactionFail>(
-      'AUTH:SIGN_TRANSACTION',
-      'AUTH:SIGN_TRANSACTION_COMPLETED',
-      'AUTH:SIGN_TRANSACTION_FAIL',
-      initial.communication.signingTransaction,
+export default combineReducers<NS.IReduxState['communication']>({
+  loadingTransaction: makeCommunicationReducer<
+    NS.ILoadTransaction,
+    NS.ILoadTransactionCompleted,
+    NS.ILoadTransactionFail>(
+      'AUTH:LOAD_TRANSACTION',
+      'AUTH:LOAD_TRANSACTION_COMPLETED',
+      'AUTH:LOAD_TRANSACTION_FAIL',
+      initial.communication.loadingTransaction,
     ),
 } as ReducersMap<NS.IReduxState['communication']>);

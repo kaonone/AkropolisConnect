@@ -1,8 +1,11 @@
 import AuthModule from 'modules/Auth';
-import { IModule, IModules } from 'shared/types/app';
+import { IModule, IModules, IAppReduxState } from 'shared/types/app';
 
 import makeMainNavigator from './MakeNavigator';
 import configureStore from './configureStore';
+import { reduxifyNavigator } from 'react-navigation-redux-helpers';
+import { connect } from 'react-redux';
+import { NavigationState } from 'react-navigation';
 
 export default function initializeCore() {
   const modules: IModules = {
@@ -13,7 +16,13 @@ export default function initializeCore() {
 
   const modulesArray: IModule[] = Object.values(modules);
 
-  const store = configureStore(modulesArray);
+  const store = configureStore(modulesArray, MainNavigator);
 
-  return { store, MainNavigator };
+  const mapStateToProps = (state: IAppReduxState) => ({
+    state: state.nav,
+  });
+  const AppWithNavigationState =
+    connect(mapStateToProps)(reduxifyNavigator(MainNavigator, 'ScannerPreview') as any);
+
+  return { store, MainNavigator: AppWithNavigationState };
 }

@@ -3,9 +3,10 @@ import { initialCommunicationField } from 'shared/helpers/redux';
 
 const initialState: ns.IReduxState = {
   data: {
+    transaction: null,
   },
   communication: {
-    signingTransaction: initialCommunicationField,
+    loadingTransaction: initialCommunicationField,
   },
 };
 

@@ -19,4 +19,10 @@ export default StyleSheet.create({
     paddingHorizontal: Platform.OS === 'ios' ? 20 : 10,
     marginTop: Platform.OS === 'ios' ? 30 : 0,
   },
+
+  error: {
+    marginTop: 50,
+    flex: 0.8,
+    textAlign: 'center',
+  },
 });
