@@ -8,10 +8,12 @@ import { Input, Modal, Button } from 'shared/view/components';
 import { ITransaction } from 'shared/models/types';
 import { IAppReduxState } from 'shared/types/app';
 import { ICommunication } from 'shared/types/redux';
-import TrustWallet, { MessagePayload, TransactionPayload } from 'react-native-trust-sdk';
+import TrustWallet, { TransactionPayload } from 'react-native-trust-sdk';
 
 import { selectors } from '../../redux';
 import styles from './styles';
+
+const minGasLimit = '32000';
 
 interface IStateProps {
   transaction: ITransaction | null;
@@ -21,9 +23,10 @@ interface IStateProps {
 interface IState {
   data: string;
   address: string;
-  isOpenModal: boolean;
   amount: string;
   message: string;
+  isOpenErrorModal: boolean;
+  isOpenSuccessModal: boolean;
 }
 
 type IProps = IStateProps & NavigationScreenProps;
@@ -33,6 +36,8 @@ class SignTransaction extends Component<IProps, IState> {
     title: 'Enter a data',
   };
 
+  // public callbackScheme: string = 'exp://gm-qy9.varimartas.akropolisconnect.exp.direct:80/--/';
+
   public callbackScheme: string = 'akropolisconnect://';
   public wallet: TrustWallet = new TrustWallet(this.callbackScheme);
 
@@ -40,10 +45,11 @@ class SignTransaction extends Component<IProps, IState> {
     // address: '0xE47494379c1d48ee73454C251A6395FDd4F9eb43',
     // data: '0x8f834227000000000000000000000000000000005224',
     address: '',
+    data: '',
     amount: '1',
     message: 'hello trust',
-    data: '',
-    isOpenModal: false,
+    isOpenErrorModal: false,
+    isOpenSuccessModal: false,
   };
 
   public componentDidMount() {
@@ -88,84 +94,51 @@ class SignTransaction extends Component<IProps, IState> {
         </View>
         <View style={styles.signTransaction}>
           <Button
-            onPress={this.openModal}
+            onPress={this.signTtransaction}
             text="COMPLETE TRANSACTION"
           />
         </View>
-        <View style={styles.signTransaction}>
-          <Button
-            onPress={this.signMsg}
-            text="test signMassage"
-          />
-        </View>
-        <View style={styles.signTransaction}>
-          <Button
-            onPress={this.signTx}
-            text="test singTransaction"
-          />
-        </View>
-        {this.renderModal({ success: false })}
+        <Modal
+          isOpen={this.state.isOpenSuccessModal}
+          success
+          descriptions="Your transaction is successful go to desktop app"
+          acceptText="OK, THANKS"
+          onAcceptClick={this.redirectToStartPage}
+        />
+        <Modal
+          isOpen={this.state.isOpenErrorModal}
+          success={false}
+          descriptions="Something goes wrong. Please try again"
+          acceptText="TRY AGAIN"
+          onAcceptClick={this.redirectToCamera}
+          rejectText="DECIDE LATER"
+          onRejectClick={this.redirectToStartPage}
+        />
       </View >
     );
   }
 
-  public signTx = () => {
-    const payload = new TransactionPayload(this.state.address, this.state.amount, this.state.data);
-    this.wallet.signTransaction(payload)
-      .then((result) => {
-        Alert.alert('Transaction Signed', result);
-      })
-      .catch((error) => {
-        Alert.alert('Error', error.msg);
-      });
-  }
+  public signTtransaction = () => {
+    const payload = new TransactionPayload(this.state.address, this.state.amount, this.state.data, '', minGasLimit);
 
-  public signMsg = () => {
-    const payload = new MessagePayload(this.state.message);
-    this.wallet.signMessage(payload)
-      .then((result) => {
-        Alert.alert('Message Signed', result);
-      }).catch((error) => {
-        Alert.alert('Error', error.msg);
+    this.wallet.signTransaction(payload)
+      .then((_result) => {
+        this.openModal(true);
+      })
+      .catch((_error) => {
+        this.openModal(false);
       });
   }
 
   public onChangeData = (value: string) => this.setState({ data: value });
   public onChangeAddress = (value: string) => this.setState({ address: value });
 
-  public renderModal = ({ success }: { success: boolean }) => {
-
-    if (success) {
-      return (
-        <Modal
-          isOpen={this.state.isOpenModal}
-          success={success}
-          descriptions="Your transaction is sucsesfull go to desktop app"
-          acceptText="OK, THANKS"
-          onAcceptClick={this.closeModal}
-        />
-      );
-    } else {
-      return (
-        <Modal
-          isOpen={this.state.isOpenModal}
-          success={success}
-          descriptions="Something goes wrong. Please try agian"
-          acceptText="TRY AGAIN"
-          onAcceptClick={this.redirectToCamera}
-          rejectText="DECIDE LATER"
-          onRejectClick={this.redirectToStartPage}
-        />
-      );
-    }
-  }
-
   public closeModal = () => {
-    this.setState({ isOpenModal: false });
+    this.setState({ isOpenErrorModal: false, isOpenSuccessModal: false });
   }
 
-  public openModal = () => {
-    this.setState({ isOpenModal: true });
+  public openModal = (success: boolean) => {
+    this.setState({ isOpenSuccessModal: success, isOpenErrorModal: !success });
   }
 
   public redirectToCamera = () => {
