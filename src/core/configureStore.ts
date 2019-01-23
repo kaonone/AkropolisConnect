@@ -40,7 +40,7 @@ function configureStore(
   const sagaMiddleware = createSagaMiddleware();
 
   const navigationMiddleware = createReactNavigationReduxMiddleware(
-    'ScannerPreview',
+    '',
     (state: IAppReduxState) => state.nav,
   );
 

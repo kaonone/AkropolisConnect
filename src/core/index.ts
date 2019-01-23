@@ -22,7 +22,7 @@ export default function initializeCore() {
     state: state.nav,
   });
   const AppWithNavigationState =
-    connect(mapStateToProps)(reduxifyNavigator(MainNavigator, 'ScannerPreview') as any);
+    connect(mapStateToProps)(reduxifyNavigator(MainNavigator, '') as any);
 
   return { store, MainNavigator: AppWithNavigationState };
 }
